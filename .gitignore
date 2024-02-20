@@ -2,6 +2,7 @@
 !.gitignore
 !flake.nix
 !flake.lock
+!README.md
 
 !/.config
 /.config/*
