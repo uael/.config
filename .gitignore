@@ -4,12 +4,13 @@
 !flake.lock
 !README.md
 
-!/.config
-/.config/*
+# SSH
+!/ssh
+/ssh/*
+!/ssh/config
 
-!/.config/alacritty/
-
-!/.config/fish/
-/.config/fish/*
-!/.config/fish/config.fish
-!/.config/fish/fish_plugins
+# Fish
+!/fish
+/fish/*
+!/fish/config.fish
+!/fish/fish_plugins
