@@ -78,15 +78,20 @@
               home.username = "uael";
               home.homeDirectory = "/Users/uael";
 
+              # Enable `fontconfig`.
+              fonts.fontconfig.enable = true;
+
               # User packages.
               home.packages = with pkgs; [
                 alacritty
                 bat
                 fish
                 git
-                jetbrains-mono
                 lsd
                 vscode
+
+                # Fonts.
+                (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
               ];
 
               # This value determines the Home Manager release that your

@@ -19,3 +19,8 @@
 /fish/*
 !/fish/config.fish
 !/fish/fish_plugins
+
+# Alacritty
+!/alacritty
+/alacritty/*
+!/alacritty/alacritty.toml
