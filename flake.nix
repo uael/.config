@@ -90,6 +90,9 @@
                 lsd
                 vscode
 
+                # Virtual machines.
+                (utm.overrideAttrs (oldAttrs: { version = "4.5"; }))
+
                 # Fonts.
                 (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
               ];
