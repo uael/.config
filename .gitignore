@@ -4,6 +4,11 @@
 !flake.lock
 !README.md
 
+# Git
+!/git
+/git/*
+!/git/config
+
 # SSH
 !/ssh
 /ssh/*
