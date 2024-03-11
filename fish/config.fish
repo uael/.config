@@ -8,7 +8,6 @@ if status is-interactive
 
   set -x PATH $PATH ~/.local/bin
   set -x PATH $PATH ~/.cargo/bin
-  set -x PATH $PATH ~/.nix-profile/bin
 
   alias ls=lsd
   alias cat=bat
