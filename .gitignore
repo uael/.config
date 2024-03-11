@@ -4,6 +4,11 @@
 !flake.lock
 !README.md
 
+# Nix
+!/nix
+/nix/*
+!/nix/nix.conf
+
 # Git
 !/git
 /git/*
@@ -20,7 +25,7 @@
 !/fish/config.fish
 !/fish/fish_plugins
 
-# Alacritty
-!/alacritty
-/alacritty/*
-!/alacritty/alacritty.toml
+# Wezterm
+!/wezterm
+/wezterm/*
+!/wezterm/wezterm.lua

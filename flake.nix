@@ -12,17 +12,31 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # home-manager, used for managing user configuration
+    # home-manager, used for managing user configuration.
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Utilities for Mac App launchers.
-    mac-app-util.url = "github:hraban/mac-app-util";
+    # Nix homebrew.
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+
+    mac-app-util.url = "github:hraban/mac-app-util"; # Utilities for Mac App launchers
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, mac-app-util }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager, nix-homebrew, homebrew-bundle, homebrew-cask, homebrew-core, mac-app-util }:
   let
     configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
@@ -55,6 +69,19 @@
       modules = [
         configuration
         mac-app-util.darwinModules.default
+        nix-homebrew.darwinModules.nix-homebrew {
+          nix-homebrew = {
+            user = "uael";
+            enable = true;
+            mutableTaps = false;
+            autoMigrate = true;
+            taps = {
+              "homebrew/homebrew-core" = homebrew-core;
+              "homebrew/homebrew-cask" = homebrew-cask;
+              "homebrew/homebrew-bundle" = homebrew-bundle;
+            };
+          };
+        }
         home-manager.darwinModules.home-manager ({ pkgs, config, lib, ... }: {
           # Allow un-free packages e.g. vscode.
           nixpkgs.config.allowUnfree = true;
@@ -62,7 +89,16 @@
           # Required to fix `Error: HOME is set to "/Users/XXX" but we expect "/var/empty"`.
           users.users.uael.home = "/Users/uael";
 
-          # `home-manager` config
+          # Homebrew config.
+          homebrew = {
+            enable = true;
+            onActivation.upgrade = true;
+            casks = [
+              "raycast"
+            ];
+          };
+
+          # `home-manager` config.
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
@@ -83,12 +119,13 @@
 
               # User packages.
               home.packages = with pkgs; [
-                alacritty
                 bat
+                broot
                 fish
                 git
                 lsd
                 vscode
+                wezterm
 
                 # Virtual machines.
                 (utm.overrideAttrs (oldAttrs: { version = "4.5"; }))
@@ -106,7 +143,7 @@
               # the Home Manager release notes for a list of state version
               # changes in each release.
               #
-              # TODO: Remove `enableNixpkgsReleaseCheck` when switching to 24.05. 
+              # TODO: Remove `enableNixpkgsReleaseCheck` when switching to 24.05.
               home.stateVersion = "23.11";
               home.enableNixpkgsReleaseCheck = false;
             };
