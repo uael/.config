@@ -97,6 +97,7 @@
             # Otherwise `home.packages` might be preferred.
             casks = [
               "google-chrome"
+              "jetbrains-toolbox"
               "raycast"
               "vlc"
             ];
