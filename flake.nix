@@ -61,6 +61,9 @@
 
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
+
+      # Allow un-free packages e.g. vscode.
+      nixpkgs.config.allowUnfree = true;
     };
   in {
     # Build darwin flake using:
@@ -83,9 +86,6 @@
           };
         }
         home-manager.darwinModules.home-manager ({ pkgs, config, lib, ... }: {
-          # Allow un-free packages e.g. vscode.
-          nixpkgs.config.allowUnfree = true;
-
           # Required to fix `Error: HOME is set to "/Users/XXX" but we expect "/var/empty"`.
           users.users.uael.home = "/Users/uael";
 
@@ -93,8 +93,12 @@
           homebrew = {
             enable = true;
             onActivation.upgrade = true;
+            # Fallback for packages that aren't supported through nix (for darwin at least).
+            # Otherwise `home.packages` might be preferred.
             casks = [
+              "google-chrome"
               "raycast"
+              "vlc"
             ];
           };
 
@@ -125,6 +129,7 @@
                 fish
                 git
                 lsd
+                qbittorrent
                 vscode
                 wezterm
 
