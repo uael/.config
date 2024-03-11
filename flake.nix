@@ -121,6 +121,7 @@
               home.packages = with pkgs; [
                 bat
                 broot
+                discord
                 fish
                 git
                 lsd
