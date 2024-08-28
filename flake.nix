@@ -14,7 +14,7 @@
 
     # home-manager, used for managing user configuration.
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -96,7 +96,6 @@
             # Fallback for packages that aren't supported through nix (for darwin at least).
             # Otherwise `home.packages` might be preferred.
             casks = [
-              "google-chrome"
               "jetbrains-toolbox"
               "raycast"
               "vlc"
@@ -150,7 +149,7 @@
               # the Home Manager release notes for a list of state version
               # changes in each release.
               #
-              # TODO: Remove `enableNixpkgsReleaseCheck` when switching to 24.05.
+              # TODO: Remove `enableNixpkgsReleaseCheck` when switching to 24.11.
               home.stateVersion = "23.11";
               home.enableNixpkgsReleaseCheck = false;
             };
