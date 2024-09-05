@@ -1,5 +1,3 @@
-
-
 -- Pull in the wezterm API
 local wezterm = require 'wezterm'
 
@@ -16,11 +14,8 @@ config.set_environment_variables = {
 config.default_prog = { 'fish', '-l' }
 config.native_macos_fullscreen_mode = true
 
--- This listen for GUI startup.
-wezterm.on("gui-startup", function()
-  local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
-  window:gui_window():toggle_fullscreen()
-end)
+-- FIXME: workaround https://github.com/wez/wezterm/issues/5990
+config.front_end = "WebGpu"
 
 -- and finally, return the configuration to wezterm
 return config
